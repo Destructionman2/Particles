@@ -1,5 +1,43 @@
 #include "Particle.h"
 
+Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPostion) : m_A(2, numPoints)
+{
+    m_ttl = TTL;
+    m_numPoints = numPoints;
+    
+    float randFract = (float)rand() / (RAND_MAX);
+    m_radiansPerSec = randFract * M_PI;
+
+    m_cartesianPlane.setCenter(0, 0);
+    m_cartesianPlane.setSize(target.getSize().x, (-1.0) * target.getSize().y);
+    
+    //Get missing code from main computer at home
+
+    //testing colors to see if code works
+    m_color1 = sf::Color::Cyan;
+    m_color2 = sf::Color::Red;
+
+    theta = randFract * (M_PI / 2);
+    dTheta = (2 * M_PI) / (numPoints - 1);
+    for (int j = 0; j < numPoints; j++)
+    {
+        int r;
+        double dx;
+        double dy;
+
+        r = rand() % (60 - 20 + 1) + 20;
+        dx = r * cos(theta);
+        dy = r * sin(theta);
+        m_A(0, j) = m_centerCoordinate.x + dx;
+        m_A(1, j) = m_centerCoordinate.y + dy;
+        theta += dTheta;
+    }
+}
+
+void Particle::draw(RenderTarget& target, RenderStates states) const
+{
+
+}
 
 bool Particle::almostEqual(double a, double b, double eps)
 {
