@@ -32,6 +32,8 @@ private:
     Color m_color1;
     Color m_color2;
     Matrix m_A;
+    double theta;
+    double dTheta;
 
     ///rotate Particle by theta radians counter-clockwise
     ///construct a RotationMatrix R, left mulitply it to m_A
