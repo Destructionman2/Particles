@@ -1,7 +1,5 @@
 #pragma once
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
 #include "Particle.h"
 using namespace sf;
 using namespace std;
