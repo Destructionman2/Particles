@@ -6,8 +6,6 @@
 using namespace sf;
 using namespace std;
 
-const int numPoints = rand() % (50 - 25 + 1) + 25;
-
 class Engine
 {
 private:

@@ -2,7 +2,7 @@
 
 Engine::Engine()
 {
-	m_Window.create(sf::VideoMode::getDesktopMode(), "Particles!");
+    m_Window.create(VideoMode::getDesktopMode(), "Particles!");
 }
 
 void Engine::run()
@@ -18,9 +18,8 @@ void Engine::run()
     // Game loop
     while (m_Window.isOpen())
     {
-        sf::Time dt = clock.restart();
-        float dtAsSeconds = dt.asSeconds();
-
+        clock.restart();
+        float dtAsSeconds = clock.getElapsedTime().asSeconds();
         input();
         update(dtAsSeconds);
         draw();
@@ -30,25 +29,29 @@ void Engine::run()
 void Engine::input()
 {
     sf::Event event;
-    switch (event.type)
+    while (m_Window.pollEvent(event))
     {
-    case sf::Event::Closed:
-        m_Window.close();
-        break;
-    case sf::Event::KeyPressed:
-        if (event.key.code == sf::Keyboard::Escape)
+        switch (event.type)
+        {
+        case sf::Event::Closed:
             m_Window.close();
-        break;
-    case sf::Event::MouseButtonPressed:
-        if(event.mouseButton.button == sf::Mouse::Left)
-            for (int i = 0; i < 5; i++)
-            {
-                Particle tempParticle(m_Window, numPoints, sf::Mouse::getPosition(m_Window));
-                m_particles.push_back(tempParticle);
-            }
-        break;
-    default:
-        break;
+            break;
+        case sf::Event::KeyPressed:
+            if (event.key.code == sf::Keyboard::Escape)
+                m_Window.close();
+            break;
+        case sf::Event::MouseButtonPressed:
+            if (event.mouseButton.button == sf::Mouse::Left)
+                for (int i = 0; i < 5; i++)
+                {
+                    int numPoints = rand() % (50 - 25 + 1) + 25;
+                    Particle tempParticle(m_Window, numPoints, sf::Mouse::getPosition(m_Window));
+                    m_particles.push_back(tempParticle);
+                }
+            break;
+        default:
+            break;
+        }
     }
 }
 
