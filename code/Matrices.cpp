@@ -1,6 +1,6 @@
 #include "Matrices.h"
-namespace Matrices
-{
+using namespace Matrices;
+
 	Matrix::Matrix(int _rows, int _cols)
 	{
 		rows = _rows;
@@ -48,4 +48,3 @@ namespace Matrices
 	{
 		return os;
 	}
-}
