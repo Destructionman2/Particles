@@ -24,8 +24,6 @@ using namespace Matrices;
 	ScalingMatrix::ScalingMatrix(double scale) : Matrix(2, 2)
 	{
 		a.at(0).at(0) = scale;
-		a.at(0).at(1) = 0;
-		a.at(1).at(0) = 0;
 		a.at(1).at(1) = scale;
 	}
 
@@ -33,12 +31,21 @@ using namespace Matrices;
 	{
 		for (int i = 0; i < nCols; i++)
 		{
-			a.at(0).at(i) = xShift;
-			a.at(1).at(i) = yShift;
+			for (int j = 0; j < 2; j++)
+			{
+				if (j == 0)
+				{
+					a.at(j).at(i) = xShift;
+				}
+				else
+				{
+					a.at(j).at(i) = yShift;
+				}
+			}
 		}
 	}
 
-	Matrix operator+(const Matrix& a, const Matrix& b)
+	Matrix Matrices::operator+(const Matrix& a, const Matrix& b)
 	{
 		if (a.getRows() != b.getRows() || a.getCols() != b.getCols())
 		{
@@ -57,7 +64,7 @@ using namespace Matrices;
 
 		return c;
 	}
-	Matrix operator*(const Matrix& a, const Matrix& b)
+	Matrix Matrices::operator*(const Matrix& a, const Matrix& b)
 	{
 		if (a.getCols() != b.getRows())
 		{
@@ -76,7 +83,7 @@ using namespace Matrices;
 		}
 		return c;
 	}
-	bool operator==(const Matrix& a, const Matrix& b)
+	bool Matrices::operator==(const Matrix& a, const Matrix& b)
 	{
 		if (a.getCols() != b.getCols() || a.getRows() != b.getRows())
 		{
@@ -94,7 +101,7 @@ using namespace Matrices;
 		}
 		return true;
 	}
-	bool operator!=(const Matrix& a, const Matrix& b)
+	bool Matrices::operator!=(const Matrix& a, const Matrix& b)
 	{
 		if (a.getCols() != b.getCols() || a.getRows() != b.getRows())
 		{
@@ -112,7 +119,7 @@ using namespace Matrices;
 		}
 		return false;
 	}
-	ostream& operator<<(ostream& os, const Matrix& a)
+	ostream& Matrices::operator<<(ostream& os, const Matrix& a)
 	{
 		for (int i = 0; i < a.getRows(); i++)
 		{
