@@ -29,17 +29,17 @@ using namespace Matrices;
 
 	TranslationMatrix::TranslationMatrix(double xShift, double yShift, int nCols) : Matrix(2, nCols)
 	{
-		for (int i = 0; i < nCols; i++)
+		for (int i = 0; i < 2; i++)
 		{
-			for (int j = 0; j < 2; j++)
+			for (int j = 0; j < nCols; j++)
 			{
-				if (j == 0)
+				if (i == 0)
 				{
-					a.at(j).at(i) = xShift;
+					a.at(i).at(j) = xShift;
 				}
 				else
 				{
-					a.at(j).at(i) = yShift;
+					a.at(i).at(j) = yShift;
 				}
 			}
 		}
@@ -54,9 +54,9 @@ using namespace Matrices;
 		// if we get here, then teh dimensions must match
 		Matrix c(a.getRows(), a.getCols());
 		// loop through each cell, assign each sum to cij
-		for (int i = 0; i < a.getRows() - 1; i++)
+		for (int i = 0; i < a.getRows(); i++)
 		{
-			for (int j = 0; a.getCols() - 1; j++)
+			for (int j = 0; j < a.getCols(); j++)
 			{
 				c(i, j) = a(i, j) + b(i, j);
 			}

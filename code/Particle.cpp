@@ -11,13 +11,18 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosti
     
     m_centerCoordinate = target.mapPixelToCoords(mouseClickPostion, m_cartesianPlane);
     
-    int a = 100;
-    int b = 500;
-    m_vx = rand() % (b - a + 1) + a;
-    m_vy = rand() % (b - a + 1) + a;
-    
-    m_color1 = sf::Color::Cyan;
-    m_color2 = sf::Color::Red;
+    int min = -100;
+    int max = 500;
+    //make its velocity random
+    m_vx = rand() % (max - min + 1) + min;
+    m_vy = rand() % (max - min + 1) + min;
+    //make its direction random
+    m_vx *= (rand() % 2 == 0) ? 1 : -1;
+    m_vy *= (rand() % 2 == 0) ? 1 : -1;
+
+    m_color1 = sf::Color::White;
+    m_color2 = sf::Color(std::rand() % 256, std::rand() % 256, std::rand() % 256);
+
 
     theta = ((float)rand() / (RAND_MAX)) * (M_PI / 2);
     dTheta = (2 * M_PI) / (numPoints - 1);
@@ -27,7 +32,7 @@ Particle::Particle(RenderTarget& target, int numPoints, Vector2i mouseClickPosti
         double dx;
         double dy;
 
-        r = rand() % (60 - 20 + 1) + 20;
+        r = (rand() % 61) + 20;
         dx = r * cos(theta);
         dy = r * sin(theta);
         m_A(0, j) = m_centerCoordinate.x + dx;
@@ -42,7 +47,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     sf::Vector2f center(target.mapCoordsToPixel(m_centerCoordinate, m_cartesianPlane));
     lines[0].position = center;
     lines[0].color = m_color1;
-    for (int j = 1; j < m_numPoints; j++)
+    for (int j = 1; j <= m_numPoints; j++)
     {
         Vector2f tempCoord(m_A(0, j - 1), m_A(1, j - 1));
         Vector2f tempVertex(target.mapCoordsToPixel(tempCoord, m_cartesianPlane));
