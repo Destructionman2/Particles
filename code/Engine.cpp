@@ -45,7 +45,8 @@ void Engine::input()
                 for (int i = 0; i < 5; i++)
                 {
                     int numPoints = rand() % (50 - 25 + 1) + 25;
-                    Particle tempParticle(m_Window, numPoints, sf::Mouse::getPosition(m_Window));
+                    Vector2i object(event.mouseButton.x, event.mouseButton.y);
+                    Particle tempParticle(m_Window, numPoints, object);
                     m_particles.push_back(tempParticle);
                 }
             break;
