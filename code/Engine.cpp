@@ -8,6 +8,7 @@ Engine::Engine()
 void Engine::run()
 {
     sf::Clock clock;
+    //Time dt = clock.restart().asSeconds();
 
     // Construct a local Particle to be used for the unit testing
     std::cout << "Starting Particle unit tests..." << std::endl;
@@ -18,11 +19,11 @@ void Engine::run()
     // Game loop
     while (m_Window.isOpen())
     {
-        clock.restart();
-        float dtAsSeconds = clock.getElapsedTime().asSeconds();
+        float dtAsSeconds = clock.restart().asSeconds();
         input();
         update(dtAsSeconds);
         draw();
+        //clock.restart();
     }
 }
 
